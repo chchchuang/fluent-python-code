@@ -9,7 +9,7 @@ def non_ascii(c):
 """
 
 def clock(label, cmd):
-    res = timeit.repeat(cmd, setup=SETUP, number=TIMES)
+    res = timeit.repeat(cmd, setup=SETUP, number=TIMES, repeat=5)
     print(label, *(f'{x:.3f}' for x in res))
 
 clock('listcomp        :', '[ord(s) for s in symbols if ord(s) > 127]')
