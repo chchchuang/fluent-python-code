@@ -1,0 +1,6 @@
+[project]
+name = "existing_proj"
+version = "0.1.0"
+dependencies = [
+    "ipykernel>=6.30.0",
+]
