@@ -1,4 +1,11 @@
 """
+結論：
+1. DictSub(dict) 的 d[k] 會使用 __getitem__ 而呼叫 __missing__，但 get() 與 __contains__ 不會
+2. UserDictSub(UserDict) 的 d[k] 與 get(k) 會使用 __getitem__ 而呼叫 __missing__，但  __contains__ 不會
+3. SimpleMappingSub(abc.Mapping) 的 d[k], get(k), __contains__ 都會使用 __getitem__，但並沒有在 __getitem__ 內呼叫 __missing__，所以不會觸發
+4. MappingMissingSub(SimpleMappingSub) 因為繼承自 abc.Mapping 而且我覆寫 __getitem__ 因此 d[k], get(k), __contains__ 都會呼叫到 __missing__
+5. DictLikeMappingSub(SimpleMappingSub) 因為繼承自 abc.Mapping，d[k] 因為使用覆寫過的 __getitem__ 因此會呼叫 __missing__，而個別覆寫的 get(k) 與 __contains__ 則不會
+
 Semantics of ``__missing__`` across mappings.
 
 ✅ = indicates ``__missing__`` was called
